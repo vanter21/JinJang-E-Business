@@ -1805,11 +1805,11 @@
 	}
 
 	a {
-		color: #999999;
+		color: #ccc;
 	}
 
 		a:hover {
-			color: rgba(153, 153, 153, 0.5);
+			color: rgba(255, 255, 255, 0.5);
 		}
 
 	strong, b {
