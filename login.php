@@ -2,6 +2,13 @@
 	include_once 'header.php';
 ?>
 		<!-- Banner -->
+			<?php
+				session_start();
+				if(isset($_SESSION['u_id']) == true){
+					header("Location: ../Assignment/index.php");
+					exit();
+				}	
+			?>
 			<section id="banner">
 				<div class="inner">
 					<header>
@@ -14,7 +21,7 @@
 				<form method="POST" action="includes/login.inc.php">
 				<div class="row uniform">
 					<!--Break-->
-					<div class="6u 12u$(small)">
+					<div class="12u$">
 						<input type="text" name="username"  value="" placeholder="Username" />
 					</div>
 					<div class="12u$">
