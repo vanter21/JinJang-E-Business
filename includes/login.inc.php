@@ -9,28 +9,30 @@ if(isset($_POST['submit'])){
 	
 	//Error handlers
 	//Check for empty fields
-	if(empty($username) ||  empty($password)){
-		header("Location: ../index.php?login=empty");
+	if(empty($username) ||  empty($password)){		
+		echo "<script type='text/javascript'>alert('Empty fields!');location.href='../login.php?login=empty'</script>";
 		exit();
 	}else{
 		$sql = "SELECT * FROM users WHERE username='$username'";
 		$result = mysqli_query($conn, $sql);
 		$resultCheck = mysqli_num_rows($result);
 		if($resultCheck < 1){
-			header("Location: ../login.php?login=error1");
+			echo "<script type='text/javascript'>alert('Incorrect username or password');location.href='../login.php?login=error'</script>";
 			exit();
 		}else{
 			if($row = mysqli_fetch_assoc($result)){
 				$hashedPwdCheck = password_verify($password, $row['password']);
 				if($hashedPwdCheck == false){
-					header("Location: ../login.php?login=error");
+					echo "<script type='text/javascript'>alert('Incorrect username or password');location.href='../login.php?login=empty'</script>";
 					exit();
 				}elseif($hashedPwdCheck == true){
 					//Log in user
 					$_SESSION['u_id'] = $row['id'];
 					$_SESSION['u_username'] = $row['username'];
 					$_SESSION['u_jobskill'] = $row['jobskill'];
-					header("Location: ../index.php?login=success");
+					$_SESSION['u_email'] = $row['email'];
+					$_SESSION['u_usertype'] = $row['usertype'];
+					echo "<script type='text/javascript'>alert('Login success!');location.href='../index.php?login=success'</script>";
 					exit();
 				}
 			}
@@ -38,6 +40,6 @@ if(isset($_POST['submit'])){
 	}
 	
 }else{
-	header("Location: ../login.php?login=error");
+	echo "<script type='text/javascript'>alert('Login error');location.href='../login.php?login=error'</script>";
 	exit();
 }

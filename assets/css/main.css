@@ -1815,7 +1815,7 @@
 	strong, b {
 		color: #000;
 	}
-
+	
 	h1, h2, h3, h4, h5, h6 {
 		color: #fff;
 	}
@@ -2737,7 +2737,7 @@
 	}
 
 	header p {
-		color: #bfbfbf;
+		color: #ffffff;
 	}
 
 /* Tab */
@@ -3078,7 +3078,7 @@
 			}
 
 			.wrapper.style1 header p {
-				color: #bfbfbf;
+				color: #ffffff;
 			}
 
 			.wrapper.style1 table tbody tr {
@@ -3290,7 +3290,7 @@
 			}
 
 			.wrapper.style2 header p {
-				color: #67b2e4;
+				color: #ffffff;
 			}
 
 			.wrapper.style2 table tbody tr {
