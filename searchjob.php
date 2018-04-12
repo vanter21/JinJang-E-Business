@@ -1,8 +1,8 @@
 <?php
+	session_start();
 	include_once 'header.php';
 	include_once 'includes/dbh.php';
-	$sql = 'SELECT * FROM jobs';
-	$query = mysqli_query($conn, $sql)
+	$jobskill = $_SESSION['u_jobskill'];
 ?>
 
 <body style="background-color:#99BCFC">
@@ -24,13 +24,17 @@
 			</tr>
 		</thead>
 		<tbody>
-		<?php
-		$id = 1;
+		<?php		
+		if($_SESSION['u_jobskill'] == 'anything')
+			$sql = "SELECT * FROM jobs";
+		else
+			$sql = "SELECT * FROM jobs WHERE jobskill = '$jobskill'";
+		$query = mysqli_query($conn, $sql);
 		while($row = mysqli_fetch_array($query))
 			if($row['available'] == true)
 		{
 			echo'<tr>
-					<td>'.$id.'</td>
+					<td>'.$row['id'].'</td>
 					<td>'.$row['title'].'</td>
 					<td>'.$row['jobskill'].'</td>
 					<td>'.$row['description'].'</td>
@@ -39,7 +43,6 @@
 					<td>'.$row['email'].'</td>
 					<td>'.$row['contact'].'</td>
 				<tr>';
-			$id++;
 		}?>
 		</tbody>
 		<tfoot>
@@ -47,7 +50,7 @@
 		</table>
 		<form class="register" method="POST" action="includes/searchjob.inc.php">
 		<div class="12u$">
-			<input type="text" name="title" placeholder="Copy & Paste Job Title here" />
+			<input type="text" name="jobid" placeholder="Enter Job ID here" />
 		</div>
 		<br>
 		<a href="index.php" style="margin-right:10px" class="button special">Back to Homepage</a>

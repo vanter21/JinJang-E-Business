@@ -12,7 +12,6 @@
 					<a href="about.php" class="button scrolly">Learn More about the Jinjang Community</a>
 						<p></p>						
 						<?php
-							session_start();
 							if(isset($_SESSION['u_id']) == true){
 								?>
 							<div id="logintrue">

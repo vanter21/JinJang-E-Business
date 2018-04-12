@@ -17,20 +17,29 @@ if(isset($_POST['submit'])){
 	
 	//Error handlers
 	//Check for empty fields
-	if(empty($title) ||  empty($jobskill) || empty($address) || empty($description) || empty($wage) || empty($email) || empty($contact)){
+	if(empty($title) ||  empty($jobskill) || empty($address) || empty($description)|| empty($email) || empty($contact)){
 		echo "<script type='text/javascript'>alert('Fill all fields!');location.href='../postjob.php?postjob=empty'</script>";
 		exit();
 	}else{
-		//Check if input characters are valid
-		if($_POST['jobskill'] == ''){
-			echo "<script type='text/javascript'>alert('Select a job skill!');location.href='../postjob.php?postjob=skillempty'</script>";
+		if(empty($wage) || $wage < 0){
+			echo "<script type='text/javascript'>alert('Enter a valid number of wage!');location.href='../postjob.php?postjob=wage'</script>";
 			exit();
-		}else{
-			//Insert the user into the database
-			$sql = "INSERT INTO jobs (title, jobskill, description, address, wage, email, contact, available) VALUES ('$title','$jobskill','$description','$address','$wage','$email','$contact',true);";
-			$result = mysqli_query($conn, $sql);
-			echo "<script type='text/javascript'>alert('Job posted!');location.href='../index.php?postjob=success'</script>";
-			exit();	
+		}
+		else
+			{
+			//Check if input characters are valid
+			if($_POST['jobskill'] == ''){
+				echo "<script type='text/javascript'>alert('Select a job skill!');location.href='../postjob.php?postjob=skillempty'</script>";
+				exit();
+			}else{
+				//Insert the user into the database
+				if(isset($_SESSION['u_id']) == true)
+					$username = $_SESSION['u_username'];
+				$sql = "INSERT INTO jobs (title, jobskill, description, address, wage, email, contact, available, postuser) VALUES ('$title','$jobskill','$description','$address','$wage','$email','$contact',true,'$username');";
+				$result = mysqli_query($conn, $sql);
+				echo "<script type='text/javascript'>alert('Job posted!');location.href='../index.php?postjob=success'</script>";
+				exit();	
+			}
 		}
 	}
 } else{

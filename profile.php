@@ -3,8 +3,6 @@
 	include_once 'header.php';
 	include_once 'includes/dbh.php';
 	$username = $_SESSION['u_username'];
-	$sql = "SELECT * FROM acceptedjobs WHERE username='$username'";
-	$query = mysqli_query($conn, $sql);
 ?>
 
 <body style="background-color:#99BCFC">
@@ -22,34 +20,65 @@
 <table class="data-table">
 		<thead>
 			<tr>
-				<th>No</th>
+				<th>Job ID</th>
 				<th>Job Title</th>
 				<th>Hourly Wage(RM)</th>
+				<th>Job Posted By</th>
 			</tr>
 		</thead>
 		<tbody>
 		<?php
-		$id = 1;
+		$sql = "SELECT * FROM acceptedjobs WHERE username='$username'";
+		$query = mysqli_query($conn, $sql);
 		while($row = mysqli_fetch_array($query))
 		{
 			echo'<tr>
-					<td>'.$id.'</td>
+					<td>'.$row['jobid'].'</td>
 					<td>'.$row['title'].'</td>
 					<td>'.$row['wage'].'</td>
+					<td>'.$row['postuser'].'</td>
 				<tr>';
-			$id++;
 		}?>
 		</tbody>
 		<tfoot>
 		</tfoot>
 		</table>
 <?php
-}else{?><h4>Preferred Job skill: <?= $_SESSION['u_jobskill'] ?></h4>
+}else{?>
+<h4>Preferred Job skill: <?= $_SESSION['u_jobskill'] ?></h4>
+<h4>Jobs posted: </h4>
+<table class="data-table">
+		<thead>
+			<tr>
+				<th>Job ID</th>
+				<th>Job Title</th>
+				<th>Hourly Wage (RM)</th>
+				<th>Job Accepted By</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php
+		$sql = "SELECT * FROM jobs WHERE postuser='$username'";
+		$query = mysqli_query($conn, $sql);
+		while($row = mysqli_fetch_array($query))
+		{
+			echo'<tr>
+					<td>'.$row['id'].'</td>
+					<td>'.$row['title'].'</td>
+					<td>'.$row['wage'].'</td>
+					<td>'.$row['accepteduser'].'</td>
+				<tr>';
+		}?>
+		</tbody>
+		<tfoot>
+		</tfoot>
+		</table>
+		
 <?php
 }
 ?>
-
 <a href="index.php" class="button special">Return to homepage</a>
+<a href="edit.php" class="button">Edit profile</a>
 <p></p>
 <br>
 </div>

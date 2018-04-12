@@ -30,7 +30,7 @@
 	<input type="text" name="address" placeholder="Address" />
 </div>
 <div class="12u$">
-	<input type="text" name="wage" placeholder="Daily wage" />
+	<input type="text" name="wage" placeholder="Hourly wage" />
 </div>
 <div class="12u$">
 	<input type="text" name="email" placeholder="Email" />

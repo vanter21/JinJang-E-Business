@@ -18,10 +18,28 @@
 				<div class="logo"><a href="index.php">Welcome to <span>Jinjang E-Business</span></a></div>
 				<a href="#menu">Menu</a>
 			</header>
-
+		
 		<!-- Nav -->
 			<nav id="menu">
 				<ul class="links">
+					<?php
+						session_start();
+						if(isset($_SESSION['u_id']) == false){
+						?>
+							<li><form action="login.php" method="POST">
+								<input type="submit" name="submit" class="btn" value="Log In" /></input></form>
+						<?php
+						}
+					?>
+					<?php
+						if(isset($_SESSION['u_id']) == true){
+						?>
+							<li><form action="includes/logout.inc.php" method="POST">
+								<input type="submit" name="submit" class="btn" value="Log Out" /></input></form></li>
+							<li><a href="profile.php">Profile</a></li>									
+						<?php
+						}
+					?>
 					<li><a href="index.php">Home</a></li>
 					<li><a href="information.php">Community Information</a></li>
 					<li><a href="about.php">About Us / Contact Us</a></li>

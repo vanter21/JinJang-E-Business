@@ -3,7 +3,6 @@
 ?>
 		<!-- Banner -->
 			<?php
-				session_start();
 				if(isset($_SESSION['u_id']) == true){
 					header("Location: ../Assignment/index.php");
 					exit();

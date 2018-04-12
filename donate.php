@@ -1,5 +1,6 @@
 <?php
 	include_once 'header.php';
+	include_once 'includes/dbh.php';
 ?>
 <html>
 
@@ -13,8 +14,32 @@
 <img src="images/donation1.jpg" alt="Donation1" width="300" height="200" style="float:left;margin: 10px 80px 0 80px">
 <img src="images/volunteer2.jpg" alt="Volunteer2" width="300" height="200" style="clear:both;margin: 10px 0 0 50px"><br>
 <br>
-<h4>AGN Bank Details</h4>
-
+<center><h4>This month's donation</h4></center>
+<table class="data-table">
+		<thead>
+			<tr>
+				<th>Donor name</th>
+				<th>Amount</th>
+				<th>Pledge made</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php
+		$sql = "SELECT * FROM donation WHERE MONTH(currentdate)=MONTH(CURRENT_DATE()) AND YEAR(currentdate)=YEAR(CURRENT_DATE())";
+		$query = mysqli_query($conn, $sql);
+		while($row = mysqli_fetch_array($query))
+		{
+			echo'<tr>
+					<td>'.$row['name'].'</td>
+					<td>'.$row['amount'].'</td>
+					<td>'.$row['currentdate'].'</td>
+				<tr>';
+		}?>
+		</tbody>
+		<tfoot>
+		</tfoot>
+</table>
+		
 </div>
 <div id="pledge">
 <center><h3>Make a pledge</h3></center>
@@ -32,7 +57,10 @@
 	</div>
 	<div class="12u$">
 		<input type="text" name="mobile" placeholder="Mobile No" />
-	</div>	
+	</div>
+	<div class="12u$">
+		<input type="text" name="amount" placeholder="Amount (RM)" />
+	</div>		
 	<div class="6u 12u$(small)">
 		<input type="radio" id="quantum" name="type" value="quantum" checked>
 		<label for="quantum">Quantum pledged (one time payment)</label>
